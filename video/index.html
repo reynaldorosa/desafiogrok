@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Nash loop — iterações de crítica</title>
+<style>
+  html,body { margin:0; background:#07080c; color:#c8d0dc; font:14px/1.4 ui-monospace,monospace; }
+  #wrap { max-width:1280px; margin:0 auto; padding:16px; }
+  h1 { font-size:16px; font-weight:600; color:#50d2e6; }
+  #stage { width:100%; background:#080a10; border:1px solid #222836; }
+  #bar { display:flex; gap:8px; align-items:center; margin:10px 0 0; }
+  button { background:#151922; color:#e6edf3; border:1px solid #2a3140; padding:6px 12px; cursor:pointer; }
+  button:hover { border-color:#50d2e6; }
+  #tick { color:#7a8494; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>Nash loop · Grok + DeepSeek + GLM · iterações de crítica</h1>
+  <img id="stage" alt="frame" width="1280" height="720"/>
+  <div id="bar">
+    <button id="play">play / pause</button>
+    <button id="prev">prev</button>
+    <button id="next">next</button>
+    <span id="tick"></span>
+  </div>
+</div>
+<script>
+const N = 44;
+const pad = i => String(i).padStart(3,'0');
+const img = document.getElementById('stage');
+const tick = document.getElementById('tick');
+let i = 0, timer = null;
+function show(k) {
+  i = (k + N) % N;
+  img.src = 'frames/frame_' + pad(i) + '.png';
+  tick.textContent = 'frame ' + i + ' / ' + (N-1);
+}
+function play() {
+  if (timer) { clearInterval(timer); timer = null; return; }
+  timer = setInterval(() => show(i+1), 900);
+}
+document.getElementById('play').onclick = play;
+document.getElementById('prev').onclick = () => show(i-1);
+document.getElementById('next').onclick = () => show(i+1);
+document.addEventListener('keydown', e => {
+  if (e.key === ' ') { e.preventDefault(); play(); }
+  if (e.key === 'ArrowRight') show(i+1);
+  if (e.key === 'ArrowLeft') show(i-1);
+});
+show(0);
+play();
+</script>
+</body>
+</html>

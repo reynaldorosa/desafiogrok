@@ -1,0 +1,6 @@
+n=30 p=0.35 instances=200
+mean=0.0196s median=0.0237s p95=0.0267s max=0.0280s
+chi histogram: 4:1 5:92 6:106 7:1
+correct=200/200 total_wall=3.96s
+runtime=CPython 3.14.4  cpu=Intel Xeon E5-2673 v3 @ 2.40GHz  threads=1
+ensemble_judge=0.97 sigma=0.03
